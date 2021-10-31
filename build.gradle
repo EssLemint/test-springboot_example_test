@@ -1,0 +1,40 @@
+buildscript {
+    ext {//ext bulid.gradle에서 전역변수를 설정하겠다는 의미
+        springBootVersion = '2.1.7.RELEASE'
+        //springBootVersion 전역변수 생성, 값을 해당 2.1.7릴리스로 하겠다는 의미
+    }
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+
+    }
+}
+
+
+//다음은 플러그인 의존성들을 적용할 것인지를 결정하는 코드
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+//io.spring--은 스프링 부트의 의존성들을 관리해주는 플러그인이기에 꼭 추가해야한다.
+//위의 4개 apply는 자바와 스프링부트를 사용하기 위해서는 필수 플러그인이니 항상 추가하면 된다.
+
+group 'com.test.example_project'
+version '1.0-SNAPSHOT'
+sourceCompatibility = 1.8
+
+//각종 의존성들을 어떤 원격저장소에서 받을지 정한다.
+//기본적으로는 mavenControl을 사용하지만 업로드 난이도로 jcenter도 많이 사용하는 추세이다
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation('org.springframework.boot:spring-boot-starter-web')
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+}
